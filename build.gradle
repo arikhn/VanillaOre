@@ -14,25 +14,22 @@ javadoc {
     failOnError = false
 }
 
-description = 'VanillaOre'
-def mod_file = getModFile()
-def mc_version = "1.12"
-def short_version = getVersion("VERSION", mod_file)
-version = mc_version + "-" + short_version
+version = "${mod_version}"
+group = "${mod_group}"
+archivesBaseName = "${mod_name}-${version_minecraft}"
 
-if (System.getenv().BUILD_NUMBER) {
-    version += '.' + System.getenv().BUILD_NUMBER
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
 }
-group = 'net.arikhn'
-archivesBaseName = 'VanillaOre'
-sourceCompatibility = targetCompatibility = '1.8'
-
 
 minecraft {
     version = "1.12.2-14.23.5.2847"
     runDir = "run"
     mappings = "stable_39"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    
+    replace '@VERSION@', project.version
+    replaceIn "ModStrings.java"
 }
 
 dependencies {
@@ -71,41 +68,4 @@ artifacts {
     archives deobfJar
     archives sourceJar
     archives javadocJar
-}
-
-String getModFile() {
-    String path = ''
-    FileTree tree = fileTree(dir: 'src/main/java')
-    tree.include '**/*.java'
-    tree.visit { element ->
-        if (element.file.isFile()) {
-            element.file.eachLine { String s ->
-                s = s.trim()
-                if (s.startsWith('@Mod(')) {
-                    path = "src/main/java/$element.relativePath"
-                }
-            }
-        }
-    }
-    return path
-}
-
-String getVersion(String type, String mod_file) {
-    String major = '0'
-    String revision = '0'
-    String patch = '0'
-    String prefix = "public static final String $type = \""
-    File file = file(mod_file)
-    file.eachLine { String s ->
-        s = s.trim()
-        if (s.startsWith(prefix)) {
-            s = s.substring(prefix.length(), s.length() - 2)
-            String[] pts = s.split("\\.")
-
-            major = pts[0]
-            revision = pts[1]
-            patch = pts[2]
-        }
-    }
-    return "$major.$revision.$patch"
 }
