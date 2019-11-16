@@ -4,14 +4,12 @@ import net.arikhn.vanillaore.data.ModStrings;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * @author Arik Hardiansyah Nugraha
  */
 
-@EventBusSubscriber
 public class ConfigHandler 
 {
 	@SubscribeEvent
