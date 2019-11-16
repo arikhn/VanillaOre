@@ -29,7 +29,7 @@ public class ModStrings
 {
 	public static final String MODID = "vanillaore";
 	public static final String MODNAME = "VanillaOre";
-	public static final String MODVERSION = "1.0.0";
+	public static final String MODVERSION = "@VERSION@";
 }
 
 /**
