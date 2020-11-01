@@ -28,17 +28,16 @@ import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class ConfigHandler 
-{
-	@SubscribeEvent
-	public void onConfigChanged(final OnConfigChangedEvent event)
-	{
-		if (event.getModID().equals(ModData.MODID)) {
-			ConfigManager.sync(ModData.MODID, Config.Type.INSTANCE);
-		}
-	}
-}
-
 /**
  * Created on 00:30:55 - 17 Nov 2019
+ * 
+ * @author Arik Hardiansyah Nugraha
  */
+public class ConfigHandler {
+  @SubscribeEvent
+  public void onConfigChanged(final OnConfigChangedEvent event) {
+    if (event.getModID().equals(ModData.MODID)) {
+      ConfigManager.sync(ModData.MODID, Config.Type.INSTANCE);
+    }
+  }
+}

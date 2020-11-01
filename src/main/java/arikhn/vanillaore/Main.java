@@ -21,10 +21,8 @@
  **/
 package arikhn.vanillaore;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import static arikhn.vanillaore.data.ModData.*;
 
-import arikhn.vanillaore.data.ModData;
 import arikhn.vanillaore.util.ConfigHandler;
 import arikhn.vanillaore.world.WorldGenOres;
 
@@ -35,29 +33,26 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-/**
- * @author Arik Hardiansyah Nugraha
- */
-
-@Mod(modid = ModData.MODID, name = ModData.MODNAME, version = ModData.MODVERSION)
-public class Main 
-{
-	@Instance
-	public static Main instance;
-	
-	public static final Logger Log = LogManager.getLogger("VANILLAORE");
-	
-	//Event Handler
-	public static ConfigHandler configHandler = new ConfigHandler();
-	
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		MinecraftForge.EVENT_BUS.register(configHandler);
-		GameRegistry.registerWorldGenerator(new WorldGenOres(), 3);
-	}
-}
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created on 00:11:16 - 17 Nov 2019
+ * 
+ * @author Arik Hardiansyah Nugraha
  */
+@Mod(modid = MODID, name = MODNAME, version = MODVERSION)
+public class Main {
+  @Instance
+  public static Main instance;
+  
+  public static final Logger Log = LogManager.getLogger("VANILLAORE");
+  
+  public static ConfigHandler configHandler = new ConfigHandler();
+  
+  @EventHandler
+  public void preInit(FMLPreInitializationEvent event) {
+    MinecraftForge.EVENT_BUS.register(configHandler);
+    GameRegistry.registerWorldGenerator(new WorldGenOres(), 3);
+  }
+}

@@ -22,16 +22,12 @@
 package arikhn.vanillaore.data;
 
 /**
+ * Created on 00:11:31 - 17 Nov 2019
+ * 
  * @author Arik Hardiansyah Nugraha
  */
-
-public class ModData 
-{
-	public static final String MODID = "vanillaore";
-	public static final String MODNAME = "VanillaOre";
-	public static final String MODVERSION = "@VERSION@";
+public class ModData {
+  public static final String MODID = "vanillaore";
+  public static final String MODNAME = "VanillaOre";
+  public static final String MODVERSION = "@VERSION@";
 }
-
-/**
- * Created on 00:11:31 - 17 Nov 2019
- */
