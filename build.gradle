@@ -8,64 +8,48 @@ buildscript {
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
-//Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-javadoc {
-    failOnError = false
+version = "${mc_version}-${mod_version}"
+if (System.getenv('BUILD_NUMBER') != null) {
+    version = "${mc_version}-${mod_version}-"+ System.getenv('BUILD_NUMBER')
 }
 
-version = "${mod_version}"
 group = "${mod_group}"
-archivesBaseName = "${mod_name}-${version_minecraft}"
+archivesBaseName = "${mod_name}"
 
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
     sourceCompatibility = targetCompatibility = '1.8'
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2847"
+    version = "${mc_version}-${forge_version}"
     runDir = "run"
-    mappings = "stable_39"
+    mappings = "${mapping_channel}_${mapping_version}"
     
     replace '@VERSION@', project.version
-    replaceIn "ModStrings.java"
+    replaceIn "${replace_class}"
 }
 
-dependencies {
-}
+dependencies {}
 
 processResources {
-    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
-    // copy everything else except the mcmod.info
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
 
 task deobfJar(type: Jar) {
-    classifier = 'deobf'
     from sourceSets.main.output
+    classifier = 'deobf'
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.getDestinationDir()
-}
-
-artifacts {
-    archives deobfJar
-    archives sourceJar
-    archives javadocJar
-}
+tasks.build.dependsOn deobfJar
