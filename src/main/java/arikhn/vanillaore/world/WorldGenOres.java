@@ -21,7 +21,7 @@
  **/
 package arikhn.vanillaore.world;
 
-import arikhn.vanillaore.config.ConfigWorldGen;
+import arikhn.vanillaore.data.ConfigWorldGen;
 
 import java.util.Random;
 

@@ -21,7 +21,7 @@
  **/
 package arikhn.vanillaore.util;
 
-import arikhn.vanillaore.data.ModStrings;
+import arikhn.vanillaore.data.ModData;
 
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -33,8 +33,8 @@ public class ConfigHandler
 	@SubscribeEvent
 	public void onConfigChanged(final OnConfigChangedEvent event)
 	{
-		if (event.getModID().equals(ModStrings.MODID)) {
-			ConfigManager.sync(ModStrings.MODID, Config.Type.INSTANCE);
+		if (event.getModID().equals(ModData.MODID)) {
+			ConfigManager.sync(ModData.MODID, Config.Type.INSTANCE);
 		}
 	}
 }

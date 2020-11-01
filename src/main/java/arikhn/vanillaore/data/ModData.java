@@ -25,7 +25,7 @@ package arikhn.vanillaore.data;
  * @author Arik Hardiansyah Nugraha
  */
 
-public class ModStrings 
+public class ModData 
 {
 	public static final String MODID = "vanillaore";
 	public static final String MODNAME = "VanillaOre";

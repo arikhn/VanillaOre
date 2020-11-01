@@ -19,9 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-package arikhn.vanillaore.config;
-
-import arikhn.vanillaore.data.ModStrings;
+package arikhn.vanillaore.data;
 
 import net.minecraftforge.common.config.Config;
 
@@ -29,7 +27,7 @@ import net.minecraftforge.common.config.Config;
  * @author Arik Hardiansyah Nugraha
  */
 
-@Config(modid = ModStrings.MODID, category = "vanillaore", name = "Vanilla Ore Settings")
+@Config(modid = ModData.MODID, category = "vanillaore", name = "Vanilla Ore Settings")
 public class ConfigWorldGen 
 {
 	@Config.Name(value = "Coal Ore")

@@ -24,7 +24,7 @@ package arikhn.vanillaore;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import arikhn.vanillaore.data.ModStrings;
+import arikhn.vanillaore.data.ModData;
 import arikhn.vanillaore.util.ConfigHandler;
 import arikhn.vanillaore.world.WorldGenOres;
 
@@ -39,7 +39,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * @author Arik Hardiansyah Nugraha
  */
 
-@Mod(modid = ModStrings.MODID, name = ModStrings.MODNAME, version = ModStrings.MODVERSION)
+@Mod(modid = ModData.MODID, name = ModData.MODNAME, version = ModData.MODVERSION)
 public class Main 
 {
 	@Instance
