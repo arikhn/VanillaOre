@@ -2,12 +2,12 @@
 {
   "modid": "vanillaore",
   "name": "VanilllaOre",
-  "description": "Configurable Vanilla Ore.",
+  "description": "Configurable Spawn Chance for Vanilla Ore.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://github.com/ArikHn",
   "updateUrl": "",
-  "authorList": ["Arik Hardiansyah Nugraha"],
+  "authorList": ["ArikHn"],
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
