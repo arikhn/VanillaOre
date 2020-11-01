@@ -19,11 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-package net.arikhn.vanillaore.world;
+package arikhn.vanillaore.world;
+
+import arikhn.vanillaore.config.ConfigWorldGen;
 
 import java.util.Random;
 
-import net.arikhn.vanillaore.config.ConfigWorldGen;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;

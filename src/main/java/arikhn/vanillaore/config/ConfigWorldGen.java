@@ -19,9 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-package net.arikhn.vanillaore.config;
+package arikhn.vanillaore.config;
 
-import net.arikhn.vanillaore.data.ModStrings;
+import arikhn.vanillaore.data.ModStrings;
+
 import net.minecraftforge.common.config.Config;
 
 /**

@@ -19,19 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-package net.arikhn.vanillaore.data;
+package arikhn.vanillaore.util;
 
-/**
- * @author Arik Hardiansyah Nugraha
- */
+import arikhn.vanillaore.data.ModStrings;
 
-public class ModStrings 
+import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.ConfigManager;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+public class ConfigHandler 
 {
-	public static final String MODID = "vanillaore";
-	public static final String MODNAME = "VanillaOre";
-	public static final String MODVERSION = "@VERSION@";
+	@SubscribeEvent
+	public void onConfigChanged(final OnConfigChangedEvent event)
+	{
+		if (event.getModID().equals(ModStrings.MODID)) {
+			ConfigManager.sync(ModStrings.MODID, Config.Type.INSTANCE);
+		}
+	}
 }
 
 /**
- * Created on 00:11:31 - 17 Nov 2019
+ * Created on 00:30:55 - 17 Nov 2019
  */

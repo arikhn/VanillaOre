@@ -19,25 +19,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-package net.arikhn.vanillaore.util;
+package arikhn.vanillaore;
 
-import net.arikhn.vanillaore.data.ModStrings;
-import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.ConfigManager;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class ConfigHandler 
+import arikhn.vanillaore.data.ModStrings;
+import arikhn.vanillaore.util.ConfigHandler;
+import arikhn.vanillaore.world.WorldGenOres;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
+/**
+ * @author Arik Hardiansyah Nugraha
+ */
+
+@Mod(modid = ModStrings.MODID, name = ModStrings.MODNAME, version = ModStrings.MODVERSION)
+public class Main 
 {
-	@SubscribeEvent
-	public void onConfigChanged(final OnConfigChangedEvent event)
+	@Instance
+	public static Main instance;
+	
+	public static final Logger Log = LogManager.getLogger("VANILLAORE");
+	
+	//Event Handler
+	public static ConfigHandler configHandler = new ConfigHandler();
+	
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event)
 	{
-		if (event.getModID().equals(ModStrings.MODID)) {
-			ConfigManager.sync(ModStrings.MODID, Config.Type.INSTANCE);
-		}
+		MinecraftForge.EVENT_BUS.register(configHandler);
+		GameRegistry.registerWorldGenerator(new WorldGenOres(), 3);
 	}
 }
 
 /**
- * Created on 00:30:55 - 17 Nov 2019
+ * Created on 00:11:16 - 17 Nov 2019
  */
