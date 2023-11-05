@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-package arikhn.vanillaore.data;
+package io.github.arikhn.vanillaore.data;
 
 import net.minecraftforge.common.config.Config;
 

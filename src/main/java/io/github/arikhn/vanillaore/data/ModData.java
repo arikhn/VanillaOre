@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-package arikhn.vanillaore.data;
+package io.github.arikhn.vanillaore.data;
 
 /**
  * Created on 00:11:31 - 17 Nov 2019
@@ -30,4 +30,5 @@ public class ModData {
   public static final String MODID = "vanillaore";
   public static final String MODNAME = "VanillaOre";
   public static final String MODVERSION = "@VERSION@";
+  public static final String FINGERPRINT = "@FINGERPRINT@";
 }

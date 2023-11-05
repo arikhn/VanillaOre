@@ -19,29 +19,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-package arikhn.vanillaore;
-
-import static arikhn.vanillaore.data.ModData.*;
-
-import arikhn.vanillaore.util.ConfigHandler;
-import arikhn.vanillaore.world.WorldGenOres;
+package io.github.arikhn.vanillaore;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import static io.github.arikhn.vanillaore.data.ModData.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.github.arikhn.vanillaore.util.ConfigHandler;
+import io.github.arikhn.vanillaore.world.WorldGenOres;
 
 /**
  * Created on 00:11:16 - 17 Nov 2019
  * 
  * @author Arik Hardiansyah Nugraha
  */
-@Mod(modid = MODID, name = MODNAME, version = MODVERSION)
+@Mod(modid = MODID, name = MODNAME, version = MODVERSION, certificateFingerprint = FINGERPRINT)
 public class Main {
   @Instance
   public static Main instance;
@@ -54,5 +55,10 @@ public class Main {
   public void preInit(FMLPreInitializationEvent event) {
     MinecraftForge.EVENT_BUS.register(configHandler);
     GameRegistry.registerWorldGenerator(new WorldGenOres(), 3);
+  }
+  
+  @EventHandler
+  public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
+      Log.warn("Invalid fingerprint detected!");
   }
 }
