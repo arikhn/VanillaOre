@@ -7,9 +7,12 @@ buildscript {
         classpath("com.anatawa12.forge:ForgeGradle:2.3-1.0.+") {
             changing = true
         }
+	classpath "nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0"
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
+apply plugin: "com.github.hierynomus.license"
 
 version = "${mc_version}-${mod_version}"
 if (System.getenv('BUILD_NUMBER') != null) {
@@ -71,3 +74,17 @@ task signJar(type: SignJar, dependsOn: deobfJar) {
 }
 
 tasks.build.dependsOn signJar
+
+license {
+    ext {
+        year = '2023'
+        fullname = 'ArikHn aka RiK'
+    }
+    header rootProject.file('HEADER')
+    include '**io/github/arikhn/**/*.java'
+    ignoreFailures false
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}
