@@ -12,15 +12,15 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: "com.github.hierynomus.license"
 
-version = "${mc_version}-${mod_version}"
+group = project.mod_group
+archivesBaseName = "vanillaore"
+version = "${project.mc_version}-${project.mod_version}"
 if (System.getenv('BUILD_NUMBER') != null) {
     version = "${mc_version}-${mod_version}-"+ System.getenv('BUILD_NUMBER')
 }
-
-group = "${mod_group}"
-archivesBaseName = "${mod_name}"
 
 sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
@@ -28,9 +28,9 @@ compileJava {
 }
 
 minecraft {
-    version = "${mc_version}-${forge_version}"
+    version = "${project.mc_version}-${project.forge_version}"
     runDir = "run"
-    mappings = "${mapping_channel}_${mapping_version}"
+    mappings = "${project.mappings}"
     
     replace '@VERSION@', project.version
     replace '@FINGERPRINT@', project.findProperty('signSHA1')
@@ -41,11 +41,11 @@ dependencies {}
 
 processResources {
     inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+    inputs.property "mcversion", project.mc_version
 
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version':project.version, 'mcversion':project.mc_version
     }
 
     from(sourceSets.main.resources.srcDirs) {
@@ -53,12 +53,7 @@ processResources {
     }
 }
 
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'deobf'
-}
-
-task signJar(type: SignJar, dependsOn: deobfJar) {
+task signJar(type: SignJar, dependsOn: ['reobfJar', 'sourceJar']) {
 
     // Skips if the keyStore property is missing.
     onlyIf {
@@ -73,7 +68,12 @@ task signJar(type: SignJar, dependsOn: deobfJar) {
     outputFile = jar.archivePath
 }
 
+artifacts {
+    archives sourceJar
+}
+
 tasks.build.dependsOn signJar
+tasks.install.dependsOn signJar
 
 license {
     ext {
@@ -86,5 +86,59 @@ license {
     strictCheck true
     mapping {
         java = 'SLASHSTAR_STYLE'
+    }
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+
+        dependsOn 'signJar'
+
+        if (project.hasProperty('mavenUser'))
+        {
+            name = "GitHubPackages"
+            repository(url: "https://maven.pkg.github.com/ArikHn/VanillaOre") {
+                authentication(userName: project.findProperty('mavenUser'), password: project.findProperty('mavenPass'))
+            }
+        }
+        else
+        {
+            repository(url: project.hasProperty('mavenUser') ? project.findProperty('localMaven') : 'file://localhost/' + project.file('repo').getAbsolutePath())
+        }
+
+
+        pom {
+            groupId = project.group
+            version = project.version
+            artifactId = project.archivesBaseName
+            project {
+                name project.mod_name
+                packaging 'jar'
+                description 'Allow to configuring spawn chance for vanilla ore'
+                url 'https://github.com/ArikHn/VanillaOre'
+
+                scm {
+                    url 'https://github.com/ArikHn/VanillaOre'
+                    connection 'scm:git:git://github.com/ArikHn/VanillaOre.git'
+                    developerConnection 'scm:git:git@github.com:ArikHn/VanillaOre.git'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'https://www.tldrlegal.com/license/mit-license'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'ArikHn'
+                        name 'ArikHn'
+                        roles { role 'developer' }
+                    }
+                }
+            }
+        }
     }
 }
